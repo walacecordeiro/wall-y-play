@@ -1,7 +1,7 @@
 export default function Home() {
  return (
   <main>
-   <h1>Conteúdo logado</h1>
+   <h1>Dashboard Logado</h1>
   </main>
  );
 }
