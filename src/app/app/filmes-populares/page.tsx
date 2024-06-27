@@ -8,8 +8,6 @@ import axios from "axios";
 import {
  Card,
  CardContent,
- CardDescription,
- CardFooter,
  CardHeader,
  CardTitle,
 } from "@/components/ui/card";
@@ -23,6 +21,8 @@ import {
  DialogTrigger,
 } from "@/components/ui/dialog";
 
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 type Movie = {
  id: number;
  backdrop_path: string;
@@ -35,12 +35,13 @@ type Movie = {
 
 export default function FilmesPopulares() {
  const [data, setData] = useState<Movie[] | null>(null);
+ const [trailer, setTrailer] = useState([]);
 
  const getMovies = async () => {
-  let config = {
+  const config = {
    method: "GET",
    endPoint: "/movie/popular",
-   params: { language: "pt-br", page: "43" },
+   params: { language: "pt-br", page: "1" },
   };
 
   await axios
@@ -48,6 +49,28 @@ export default function FilmesPopulares() {
    .then(function (response) {
     setData(response.data.results);
     console.log(response.data.results);
+   })
+   .catch(function (error) {
+    console.log(error);
+   });
+ };
+
+ const getTrailerMovie = async (movieID?: number) => {
+  const config = {
+   method: "GET",
+   endPoint: `/movie/${movieID}/videos`,
+   params: { language: "pt-br" },
+  };
+
+  await axios
+   .request(apiRequest(config))
+   .then(function (response) {
+    const trailerKey = response.data.results[0]?.key;
+    if (trailerKey === undefined) {
+     setTrailer([]);
+    } else {
+     setTrailer(response.data.results[0].key);
+    }
    })
    .catch(function (error) {
     console.log(error);
@@ -81,6 +104,7 @@ export default function FilmesPopulares() {
               src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
               alt="Image"
               className="w-[100%] h-[100%] transition sm:hover:scale-105 mb-4 rounded-xl object-cover"
+              onClick={() => getTrailerMovie(movie.id)}
              />
             </DialogTrigger>
             <DialogContent
@@ -90,15 +114,15 @@ export default function FilmesPopulares() {
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
              }}
-             className="flex flex-col h-fit max-h-screen overflow-auto items-center sm:max-w-[80%] sm:max-h-[90%] text-white border-none sm:rounded-xl"
+             className="flex flex-col h-fit max-h-screen overflow-auto sm:max-w-[80%] sm:max-h-[90%] text-white border-none sm:rounded-xl"
             >
              <DialogHeader className="grid grid-cols-1 max-h-fit justify-items-center text-start sm:flex sm:flex-row sm:items-start sm:gap-4">
               <img
                src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
                alt="Image"
-               className="w-[200px] h-auto mb-4 rounded-xl object-cover shadow-xl shadow-black transition sm:animate-none sm:mb-0"
+               className="top-0 right-0 w-[200px] h-auto mb-4 rounded-xl object-cover shadow-xl shadow-black transition sm:sticky sm:animate-none sm:mb-0"
               />
-              <div className="!m-0 text-white h-[100%]">
+              <div className="!m-0 text-white w-full h-[100%]">
                {movie.backdrop_path ? (
                 <img
                  src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
@@ -110,18 +134,47 @@ export default function FilmesPopulares() {
                  <LoadBox />
                 </div>
                )}
-               <DialogTitle className="pt-6 pb-1 sm:text-4xl">{movie.title}</DialogTitle>
-               Sinopse:
-               <DialogDescription className="inline ml-1 text-white">
-                {movie.overview}
-               </DialogDescription>
+               <DialogTitle className="pb-6 text-center sm:text-start sm:text-4xl sm:pt-6 sm:pb-1">
+                {movie.title}
+               </DialogTitle>
+               <Tabs defaultValue="sinopse" className="w-full">
+                <TabsList className="w-full justify-center p-0 mb-4 gap-2 bg-transparent text-white sm:w-fit">
+                 <TabsTrigger
+                  className="outline outline-1 shadow-lg shadow-black data-[state=active]:shadow-lg data-[state=active]:shadow-black"
+                  value="sinopse"
+                 >
+                  Sinopse
+                 </TabsTrigger>
+                 <TabsTrigger
+                  className="outline outline-1 shadow-lg shadow-black data-[state=active]:shadow-lg data-[state=active]:shadow-black"
+                  value="trailer"
+                 >
+                  Assistir Trailer
+                 </TabsTrigger>
+                </TabsList>
+
+                <TabsContent value="sinopse">
+                 <DialogDescription className="text-white">{movie.overview}</DialogDescription>
+                </TabsContent>
+
+                <TabsContent value="trailer">
+                 {trailer.length > 0 ? (
+                  <div>
+                   <div className="flex w-full">
+                    <iframe
+                     className="w-full h-[45vh] rounded-xl shadow-xl shadow-black sm:w-full sm:h-[71vh]"
+                     src={`https://www.youtube.com/embed/${trailer}`}
+                     title={`Trailer de ${movie.title}`}
+                    ></iframe>
+                   </div>
+                  </div>
+                 ) : (
+                  <p className="text-destructive">Lamentamos muito! Ainda não temos trailer para este título...</p>
+                 )}
+                </TabsContent>
+               </Tabs>
               </div>
              </DialogHeader>
-             <div>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam unde veritatis corporis
-              perspiciatis quas explicabo veniam officia dolor placeat quaerat id at facilis sunt
-              commodi labore neque, odit blanditiis ipsam.
-             </div>
             </DialogContent>
            </Dialog>
 
