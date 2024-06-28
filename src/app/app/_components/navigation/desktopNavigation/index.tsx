@@ -36,7 +36,7 @@ export function DesktopNavigation() {
            <AvatarFallback>WC</AvatarFallback>
           </Avatar>
 
-          <div className="mb-2 mt-4 text-lg font-medium">dashboard/Walace's</div>
+          <div className="mb-2 mt-4 text-lg font-medium">dashboard/Walace&apos;s</div>
           <p className="text-sm leading-tight text-muted-foreground">
            Voltar para dashboard e veja o panorama completo.
           </p>
