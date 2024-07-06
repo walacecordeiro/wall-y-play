@@ -14,7 +14,7 @@ export default function RootLayout({
    <div className="max-md:hidden">
     <DesktopNavigation />
    </div>
-   <div>{children}</div>
+   <div className="my-9">{children}</div>
   </main>
  );
 }

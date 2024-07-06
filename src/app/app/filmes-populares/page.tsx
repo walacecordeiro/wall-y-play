@@ -5,12 +5,7 @@ import React, { useState, useEffect } from "react";
 import { apiRequest } from "@/api/tmdbServer";
 import axios from "axios";
 
-import {
- Card,
- CardContent,
- CardHeader,
- CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import {
  Dialog,
@@ -22,6 +17,16 @@ import {
 } from "@/components/ui/dialog";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+import {
+ Pagination,
+ PaginationContent,
+ PaginationEllipsis,
+ PaginationItem,
+ PaginationLink,
+ PaginationNext,
+ PaginationPrevious,
+} from "@/components/ui/pagination";
 
 type Movie = {
  id: number;
@@ -36,19 +41,19 @@ type Movie = {
 export default function FilmesPopulares() {
  const [data, setData] = useState<Movie[] | null>(null);
  const [trailer, setTrailer] = useState([]);
+ const [currentPage, setCurrentPage] = useState(1);
 
  const getMovies = async () => {
   const config = {
    method: "GET",
    endPoint: "/movie/popular",
-   params: { language: "pt-br", page: "1" },
+   params: { language: "pt-br", page: `${currentPage}` },
   };
 
   await axios
    .request(apiRequest(config))
    .then(function (response) {
     setData(response.data.results);
-    console.log(response.data.results);
    })
    .catch(function (error) {
     console.log(error);
@@ -85,11 +90,45 @@ export default function FilmesPopulares() {
 
  useEffect(() => {
   getMovies();
- }, []);
+ }, [currentPage]);
+
+ const nextPage = () => {
+  setCurrentPage((currentPage) => currentPage + 1);
+ };
+
+ const previousPage = () => {
+  if (currentPage > 1) {
+   setCurrentPage((currentPage) => currentPage - 1);
+  }
+ };
 
  return (
-  <main className="flex gap-2 m-2 sm:m-8 flex-col h-screen">
+  <main className="flex gap-2 flex-col w-[95%] mx-auto">
    <h1>Filmes Populares:</h1>
+   <Pagination>
+    <PaginationContent>
+     <PaginationItem>
+      <PaginationPrevious onClick={previousPage} className="p-0 sm:px-2.5" />
+     </PaginationItem>
+     <PaginationItem>
+      <PaginationLink href="#">{currentPage - 1}</PaginationLink>
+     </PaginationItem>
+     <PaginationItem>
+      <PaginationLink href="#" isActive>
+       {currentPage}
+      </PaginationLink>
+     </PaginationItem>
+     <PaginationItem>
+      <PaginationLink href="#">{currentPage + 1}</PaginationLink>
+     </PaginationItem>
+     <PaginationItem>
+      <PaginationEllipsis />
+     </PaginationItem>
+     <PaginationItem>
+      <PaginationNext onClick={nextPage} className="p-0 sm:px-2.5" />
+     </PaginationItem>
+    </PaginationContent>
+   </Pagination>
    {data ? (
     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-4 pb-4 animate-fade-in">
      {data.map(
@@ -114,7 +153,7 @@ export default function FilmesPopulares() {
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
              }}
-             className="flex flex-col h-fit max-h-screen overflow-auto sm:max-w-[80%] sm:max-h-[90%] text-white border-none sm:rounded-xl"
+             className="flex flex-col h-fit max-h-[90%] overflow-auto sm:max-w-[80%] sm:max-h-[90%] text-white border-none sm:rounded-xl"
             >
              <DialogHeader className="grid grid-cols-1 max-h-fit justify-items-center text-start sm:flex sm:flex-row sm:items-start sm:gap-4">
               <img
@@ -169,7 +208,9 @@ export default function FilmesPopulares() {
                    </div>
                   </div>
                  ) : (
-                  <p className="text-destructive">Lamentamos muito! Ainda não temos trailer para este título...</p>
+                  <p className="text-destructive">
+                   Lamentamos muito! Ainda não temos trailer para este título...
+                  </p>
                  )}
                 </TabsContent>
                </Tabs>
