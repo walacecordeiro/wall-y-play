@@ -41,6 +41,7 @@ type Movie = {
 export default function FilmesPopulares() {
  const [data, setData] = useState<Movie[] | null>(null);
  const [trailer, setTrailer] = useState([]);
+ let completeMovie = "";
  const [currentPage, setCurrentPage] = useState(1);
 
  const getMovies = async () => {
@@ -143,7 +144,9 @@ export default function FilmesPopulares() {
               src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
               alt="Image"
               className="w-[100%] h-[100%] transition sm:hover:scale-105 mb-4 rounded-xl object-cover"
-              onClick={() => getTrailerMovie(movie.id)}
+              onClick={() => {
+               getTrailerMovie(movie.id);
+              }}
              />
             </DialogTrigger>
             <DialogContent
@@ -190,6 +193,13 @@ export default function FilmesPopulares() {
                  >
                   Assistir Trailer
                  </TabsTrigger>
+
+                 <TabsTrigger
+                  className="outline outline-1 shadow-lg shadow-black data-[state=active]:shadow-lg data-[state=active]:shadow-black"
+                  value="movie"
+                 >
+                  Assistir Filme
+                 </TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="sinopse">
@@ -204,12 +214,32 @@ export default function FilmesPopulares() {
                      className="w-full h-[45vh] rounded-xl shadow-xl shadow-black sm:w-full sm:h-[71vh]"
                      src={`https://www.youtube.com/embed/${trailer}`}
                      title={`Trailer de ${movie.title}`}
+                     allowFullScreen
                     ></iframe>
                    </div>
                   </div>
                  ) : (
                   <p className="text-destructive">
-                   Lamentamos muito! Ainda não temos trailer para este título...
+                   Lamentamos muito! Não temos trailer para este título...
+                  </p>
+                 )}
+                </TabsContent>
+
+                <TabsContent value="movie">
+                 {movie.id ? (
+                  <div>
+                   <div className="flex w-full">
+                    <iframe
+                     className="w-full h-[45vh] rounded-xl shadow-xl shadow-black sm:w-full sm:h-[71vh]"
+                     id="EmbedderContainer"
+                     src={`https://embedder.net/e/${movie.id}`}
+                     allowFullScreen
+                    ></iframe>
+                   </div>
+                  </div>
+                 ) : (
+                  <p className="text-destructive">
+                   Lamentamos muito! Não temos o filme deste título...
                   </p>
                  )}
                 </TabsContent>
