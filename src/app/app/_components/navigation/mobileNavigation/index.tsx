@@ -38,7 +38,7 @@ export function MobileNavigation() {
      <HamburgerMenuIcon />
     </Button>
    </SheetTrigger>
-   <SheetContent side="left" className="overflow-y-scroll w-fit">
+   <SheetContent className="overflow-y-scroll w-fit">
     <SheetHeader className="items-start text-left">
      <SheetTitle>Logo</SheetTitle>
      <SheetDescription className="text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit.</SheetDescription>

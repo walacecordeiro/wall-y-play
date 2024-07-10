@@ -8,13 +8,13 @@ export default function RootLayout({
 }>) {
  return (
   <main>
-   <div className="md:hidden">
+   <div className="md:hidden fixed right-4 top-4 z-50">
     <MobileNavigation />
    </div>
    <div className="max-md:hidden">
     <DesktopNavigation />
    </div>
-   <div className="my-9">{children}</div>
+   <div className="mb-28 mt-9">{children}</div>
   </main>
  );
 }
