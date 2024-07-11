@@ -16,7 +16,7 @@ import {
  PaginationNext,
  PaginationPrevious,
 } from "@/components/ui/pagination";
-import Details from "./_components/movieDetails";
+import Details from "../_components/movieDetails";
 
 type Movie = {
  id: number;
@@ -28,22 +28,43 @@ type Movie = {
  vote_average: number;
 };
 
-export default function FilmesPopulares() {
+type paramsUrlProps = {
+ params: {
+  listType: string;
+ };
+};
+
+export default function FilmesPopulares({ params }: paramsUrlProps) {
  const [data, setData] = useState<Movie[] | null>(null);
  const [trailer, setTrailer] = useState([]);
  const [currentPage, setCurrentPage] = useState(1);
 
+ let typeList = handleVerifyType(params.listType);
+
+ function handleVerifyType(param: string) {
+  switch (param) {
+    case "popular":
+    return "Filmes populares";
+   case "top_rated":
+    return "Mais bem avaliados";
+   case "upcoming":
+    return "Radar de novidades";
+   case "now_playing":
+    return "Em cartaz";
+  }
+ }
+
  const getMovies = async () => {
   const config = {
    method: "GET",
-   endPoint: "/movie/popular",
+   endPoint: `/movie/${params.listType}`,
    params: { language: `pt-br`, page: `${currentPage}` },
   };
 
   await axios
    .request(apiRequest(config))
    .then(function (response) {
-    setData(response.data.results);
+     setData(response.data.results);
    })
    .catch(function (error) {
     console.log(error);
@@ -95,7 +116,7 @@ export default function FilmesPopulares() {
  return (
   <main className="relative flex gap-2 flex-col w-[95%] mx-auto">
    <Pagination className="z-50 flex flex-col gap-4 items-center fixed bottom-0 bg-background py-4 border-t md:flex-row lg:sticky lg:top-0 lg:border-b lg:border-t-0">
-    <h1 className="text-primary">Filmes Populares</h1>
+    <h1 className="text-primary">{typeList}</h1>
     <PaginationContent>
      <PaginationItem>
       <PaginationPrevious
@@ -158,99 +179,6 @@ export default function FilmesPopulares() {
              movieOverview={movie.overview}
              movieTrailer={trailer}
             />
-            {/* <DialogContent
-              style={{
-               backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://image.tmdb.org/t/p/original${movie.backdrop_path}')`,
-               backgroundSize: "cover",
-               backgroundPosition: "center",
-               backgroundRepeat: "no-repeat",
-              }}
-              className="flex flex-col h-fit max-h-[90%] overflow-auto sm:max-w-[80%] sm:max-h-[90%] text-white border-none sm:rounded-xl"
-             >
-              <DialogHeader className="grid grid-cols-1 max-h-fit justify-items-center text-start sm:flex sm:flex-row sm:items-start sm:gap-4">
-               <img
-                src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
-                alt="Image"
-                className="top-0 right-0 w-[200px] h-auto mb-4 rounded-xl object-cover shadow-xl shadow-black transition sm:sticky sm:animate-none sm:mb-0"
-               />
-               <div className="!m-0 text-white w-full h-[100%]">
-                {movie.backdrop_path && (
-                 <img
-                  src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
-                  alt="Image"
-                  className="hidden w-[98%] h-[200px] mb-4 rounded-xl object-cover shadow-xl shadow-black transition md:block sm:animate-none sm:mb-0"
-                 />
-                )}
-                <DialogTitle className="pb-6 text-center sm:text-start sm:text-4xl sm:pt-6 sm:pb-1">
-                 {movie.title}
-                </DialogTitle>
-                <Tabs defaultValue="sinopse" className="w-full">
-                 <TabsList className="w-full justify-center p-0 mb-4 gap-2 bg-transparent text-white sm:w-fit">
-                  <TabsTrigger
-                   className="outline outline-1 shadow-lg shadow-black data-[state=active]:shadow-lg data-[state=active]:shadow-black"
-                   value="sinopse"
-                  >
-                   Sinopse
-                  </TabsTrigger>
-                  <TabsTrigger
-                   className="outline outline-1 shadow-lg shadow-black data-[state=active]:shadow-lg data-[state=active]:shadow-black"
-                   value="trailer"
-                  >
-                   Assistir Trailer
-                  </TabsTrigger>
-
-                  <TabsTrigger
-                   className="outline outline-1 shadow-lg shadow-black data-[state=active]:shadow-lg data-[state=active]:shadow-black"
-                   value="movie"
-                  >
-                   Assistir Filme
-                  </TabsTrigger>
-                 </TabsList>
-
-                 <TabsContent value="sinopse">
-                  <DialogDescription className="text-white">{movie.overview}</DialogDescription>
-                 </TabsContent>
-
-                 <TabsContent value="trailer">
-                  {trailer.length > 0 ? (
-                   <div>
-                    <div className="flex w-full">
-                     <iframe
-                      className="w-full h-[45vh] rounded-xl shadow-xl shadow-black sm:w-full sm:h-[71vh]"
-                      src={`https://www.youtube.com/embed/${trailer}`}
-                      title={`Trailer de ${movie.title}`}
-                      allowFullScreen
-                     ></iframe>
-                    </div>
-                   </div>
-                  ) : (
-                   <p className="text-destructive">
-                    Lamentamos muito! Não temos trailer para este título...
-                   </p>
-                  )}
-                 </TabsContent>
-
-                 <TabsContent value="movie">
-                  {movie.id ? (
-                   <div>
-                    <div className="flex w-full">
-                     <iframe
-                      className="w-full h-[45vh] rounded-xl shadow-xl shadow-black sm:w-full sm:h-[71vh]"
-                      src={`https://embedder.net/e/${movie.id}`}
-                      allowFullScreen
-                     ></iframe>
-                    </div>
-                   </div>
-                  ) : (
-                   <p className="text-destructive">
-                    Lamentamos muito! Não temos o filme deste título...
-                   </p>
-                  )}
-                 </TabsContent>
-                </Tabs>
-               </div>
-              </DialogHeader>
-             </DialogContent> */}
            </Dialog>
 
            <CardTitle>{movie.title}</CardTitle>

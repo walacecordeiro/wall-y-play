@@ -1,24 +1,26 @@
 export const navigationComponents: { title: string; href: string; description: string }[] = [
  {
   title: "Populares",
-  href: "/app/filmes-populares",
+  href: "/app/filmes/popular",
   description:
-   "A modal dialog that interrupts the user with important content and expects a response.",
- },
- {
-  title: "Em cartaz",
-  href: "/app",
-  description: "For sighted users to preview content available behind a link.",
- },
- {
-  title: "Próximas estréias",
-  href: "/app",
-  description:
-   "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
+   "Explore os filmes mais assistidos do momento.",
  },
  {
   title: "Mais bem avaliados",
-  href: "/app",
-  description: "Visually or semantically separates content.",
+  href: "/app/filmes/top_rated",
+  description:
+   "Filmes que receberam as melhores avaliações do público.",
+ },
+ {
+  title: "Radar de novidades",
+  href: "/app/filmes/upcoming",
+  description:
+   "Fique por dentro dos filmes que vão agitar as telas.",
+ },
+ {
+  title: "Em cartaz",
+  href: "/app/filmes/now_playing",
+  description:
+   "Filmes atualmente em exibição nos cinemas e streaming.",
  },
 ];
