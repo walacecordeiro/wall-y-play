@@ -1,18 +1,16 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
 
 import { cn } from "@/lib/utils";
 
-import { HamburgerMenuIcon } from "@radix-ui/react-icons";
+import Hamburguer from "@/assets/hamburguer.svg";
 import { Button } from "@/components/ui/button";
 import {
  Sheet,
  SheetContent,
  SheetDescription,
  SheetHeader,
- SheetTitle,
  SheetTrigger,
 } from "@/components/ui/sheet";
 
@@ -24,24 +22,35 @@ import {
  NavigationMenuList,
  NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu-mobile";
+
+import Logo from "@/assets/Logo.svg";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { navigationComponents } from "../utils/navigationDB";
 import { Separator } from "@/components/ui/separator";
 import { BtnLogout } from "../../btnLogout";
+import Image from "next/image";
 
-export function MobileNavigation() {
+type PropsMobileNavigation = {
+ className?: string;
+};
+
+export function MobileNavigation({ className }: PropsMobileNavigation) {
  return (
   <Sheet>
    <SheetTrigger asChild>
     <Button variant="outline">
-     <HamburgerMenuIcon />
+     <Image src={Hamburguer} alt="logo do site" width={undefined} height={undefined} />
     </Button>
    </SheetTrigger>
    <SheetContent className="overflow-y-scroll w-fit">
-    <SheetHeader className="items-start text-left">
-     <SheetTitle>Logo</SheetTitle>
-     <SheetDescription className="text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit.</SheetDescription>
+    <SheetHeader className="items-start text-left mb-4">
+     <a href="/app">
+      <Image src={Logo} alt="logo do site" width={120} height={35} />
+     </a>
+     <SheetDescription className="text-xs">
+      Onde a magia do cinema e a emoção das séries se encontram.
+     </SheetDescription>
     </SheetHeader>
     <NavigationMenuMobile className="w-full items-start justify-start">
      <NavigationMenuList className="flex-col space-x-0 justify-start items-start">
@@ -120,7 +129,7 @@ export function MobileNavigation() {
           Atualize seu perfil e preferências de filme.
          </ListItem>
          <ListItem href="/app" title="Configurações da conta">
-         Ajuste suas configurações de conta e privacidade.
+          Ajuste suas configurações de conta e privacidade.
          </ListItem>
          <Separator />
          <p className="line-clamp-2 p-1 text-sm text-center leading-snug text-muted-foreground">

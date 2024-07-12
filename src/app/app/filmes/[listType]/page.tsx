@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { apiRequest } from "@/api/tmdbServer";
+import { TMDB_response } from "@/services/tmdb";
 import axios from "axios";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -43,7 +43,7 @@ export default function FilmesPopulares({ params }: paramsUrlProps) {
 
  function handleVerifyType(param: string) {
   switch (param) {
-    case "popular":
+   case "popular":
     return "Filmes populares";
    case "top_rated":
     return "Mais bem avaliados";
@@ -62,9 +62,9 @@ export default function FilmesPopulares({ params }: paramsUrlProps) {
   };
 
   await axios
-   .request(apiRequest(config))
+   .request(TMDB_response(config))
    .then(function (response) {
-     setData(response.data.results);
+    setData(response.data.results);
    })
    .catch(function (error) {
     console.log(error);
@@ -79,7 +79,7 @@ export default function FilmesPopulares({ params }: paramsUrlProps) {
   };
 
   await axios
-   .request(apiRequest(config))
+   .request(TMDB_response(config))
    .then(function (response) {
     const trailerKey = response.data.results[0]?.key;
     if (trailerKey === undefined) {

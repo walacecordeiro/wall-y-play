@@ -1,7 +1,9 @@
+import MovieBanner from "./filmes/_components/MovieBanner";
+
 export default function Home() {
  return (
   <main>
-   <h1>Dashboard Logado</h1>
+   <MovieBanner />
   </main>
  );
 }

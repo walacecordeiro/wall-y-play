@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { FcGoogle } from "react-icons/fc";
-import { apiRequest } from "@/api/tmdbServer";
+import { TMDB_response } from "@/services/tmdb";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -27,7 +27,7 @@ export default function Auth() {
   };
 
   await axios
-   .request(apiRequest(config))
+   .request(TMDB_response(config))
    .then(function (response) {
     setData(response.data.results[0]);
     console.log(response.data.results[0]);
