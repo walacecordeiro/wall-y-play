@@ -115,7 +115,7 @@ export default function FilmesPopulares({ params }: paramsUrlProps) {
 
  return (
   <main className="relative flex gap-2 flex-col w-[95%] mx-auto">
-   <Pagination className="z-50 flex flex-col gap-4 items-center fixed bottom-0 bg-background py-4 border-t md:flex-row lg:sticky lg:top-0 lg:border-b lg:border-t-0">
+   <Pagination className="z-50 flex flex-col gap-4 items-center fixed bottom-0 left-0 bg-gradient-to-t from-background from-10% via-background via-95% to-transparent to-100% py-4 md:flex-row lg:sticky lg:top-0 lg:bg-gradient-to-b">
     <h1 className="text-primary">{typeList}</h1>
     <PaginationContent>
      <PaginationItem>

@@ -23,7 +23,8 @@ import {
  NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu-mobile";
 
-import Logo from "@/assets/Logo.svg";
+import baseLogo from "@/assets/baseLogo.svg";
+import moldeLogo from "@/assets/moldeLogo.svg";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { navigationComponents } from "../utils/navigationDB";
@@ -45,8 +46,9 @@ export function MobileNavigation({ className }: PropsMobileNavigation) {
    </SheetTrigger>
    <SheetContent className="overflow-y-scroll w-fit">
     <SheetHeader className="items-start text-left mb-4">
-     <a href="/app">
-      <Image src={Logo} alt="logo do site" width={120} height={35} />
+     <a className="relative" href="/app">
+      <Image src={baseLogo} alt="logo do site" width={undefined} height={35} />
+      <Image src={moldeLogo} alt="logo do site" width={undefined} height={35}  className="absolute top-0 animate-spin-slow"/>
      </a>
      <SheetDescription className="text-xs">
       Onde a magia do cinema e a emoção das séries se encontram.

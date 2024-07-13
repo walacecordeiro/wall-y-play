@@ -84,6 +84,7 @@ const config = {
    animation: {
     "accordion-down": "accordion-down 0.2s ease-out",
     "accordion-up": "accordion-up 0.2s ease-out",
+    "spin-slow": "spin 20s linear infinite",
     "fade-in": "fade-in 0.2s ease-in-out",
     "zig-zag": "zig-zag infinite 2s ease",
    },
