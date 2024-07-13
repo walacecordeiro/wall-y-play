@@ -72,7 +72,7 @@ export function MobileNavigation({ className }: PropsMobileNavigation) {
       <NavigationMenuItem>
        <NavigationMenuTrigger className="p-0">Séries</NavigationMenuTrigger>
        <NavigationMenuContent>
-        <ul className="grid gap-3 p-2 w-full">
+        <ul className="grid gap-3 p-2">
          {navigationComponents.map((component) => (
           <ListItem key={component.title} title={component.title} href={component.href}>
            {component.description}

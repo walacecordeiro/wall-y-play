@@ -21,15 +21,12 @@ type Movie = {
  poster_path: string;
  title: string;
  overview: string;
- release_date: string;
- vote_average: number;
 };
 
-export default function MovieBanner() {
+export default function MoviesBanner() {
  const [data, setData] = useState<Movie[] | null>(null);
  const [api, setApi] = useState<CarouselApi>();
  const [current, setCurrent] = useState(1);
- const [count, setCount] = useState(0);
 
  const fetchMovies = async () => {
   const config = {
@@ -41,7 +38,6 @@ export default function MovieBanner() {
   try {
    const response = await axios.request(TMDB_response(config));
    setData(response.data.results);
-   setCount(response.data.results.length);
   } catch (error) {
    console.error(error);
   }

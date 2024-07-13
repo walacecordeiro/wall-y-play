@@ -39,21 +39,6 @@ export default function FilmesPopulares({ params }: paramsUrlProps) {
  const [trailer, setTrailer] = useState([]);
  const [currentPage, setCurrentPage] = useState(1);
 
- let typeList = handleVerifyType(params.listType);
-
- function handleVerifyType(param: string) {
-  switch (param) {
-   case "popular":
-    return "Filmes populares";
-   case "top_rated":
-    return "Mais bem avaliados";
-   case "upcoming":
-    return "Radar de novidades";
-   case "now_playing":
-    return "Em cartaz";
-  }
- }
-
  const getMovies = async () => {
   const config = {
    method: "GET",
@@ -116,7 +101,6 @@ export default function FilmesPopulares({ params }: paramsUrlProps) {
  return (
   <main className="relative flex gap-2 flex-col w-[95%] mx-auto">
    <Pagination className="z-50 flex flex-col gap-4 items-center fixed bottom-0 left-0 bg-gradient-to-t from-background from-10% via-background via-95% to-transparent to-100% py-4 md:flex-row lg:sticky lg:top-0 lg:bg-gradient-to-b">
-    <h1 className="text-primary">{typeList}</h1>
     <PaginationContent>
      <PaginationItem>
       <PaginationPrevious
@@ -133,7 +117,7 @@ export default function FilmesPopulares({ params }: paramsUrlProps) {
       </PaginationLink>
      </PaginationItem>
      <PaginationItem>
-      <PaginationLink isActive>{currentPage}</PaginationLink>
+      <PaginationLink className="border-primary" isActive>{currentPage}</PaginationLink>
      </PaginationItem>
      <PaginationItem>
       <PaginationLink
