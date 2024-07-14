@@ -23,20 +23,18 @@ import {
  NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu-mobile";
 
-import baseLogo from "@/assets/baseLogo.svg";
-import moldeLogo from "@/assets/moldeLogo.svg";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { navigationComponents } from "../utils/navigationDB";
 import { Separator } from "@/components/ui/separator";
 import { BtnLogout } from "../../btnLogout";
 import Image from "next/image";
+import Logo from "../../logo";
+import CloseMenu from "@/app/app/functions/closeMenu";
+import ItemNavLink from "../_components/itemNavLink";
+import { amatic_SC } from "@/fonts";
 
-type PropsMobileNavigation = {
- className?: string;
-};
-
-export function MobileNavigation({ className }: PropsMobileNavigation) {
+export function MobileNavigation() {
  return (
   <Sheet>
    <SheetTrigger asChild>
@@ -46,10 +44,7 @@ export function MobileNavigation({ className }: PropsMobileNavigation) {
    </SheetTrigger>
    <SheetContent className="overflow-y-scroll w-fit">
     <SheetHeader className="items-start text-left mb-4">
-     <a className="relative" href="/app">
-      <Image src={baseLogo} alt="logo do site" width={undefined} height={35} />
-      <Image src={moldeLogo} alt="logo do site" width={undefined} height={35}  className="absolute top-0 animate-spin-slow"/>
-     </a>
+     <Logo />
      <SheetDescription className="text-xs">
       Onde a magia do cinema e a emoção das séries se encontram.
      </SheetDescription>
@@ -61,9 +56,12 @@ export function MobileNavigation({ className }: PropsMobileNavigation) {
        <NavigationMenuContent>
         <ul className="grid gap-3 p-2">
          {navigationComponents.map((component) => (
-          <ListItem key={component.title} title={component.title} href={component.href}>
-           {component.description}
-          </ListItem>
+          <ItemNavLink
+           key={component.title}
+           href={component.href}
+           title={component.title}
+           description={component.description}
+          />
          ))}
         </ul>
        </NavigationMenuContent>
@@ -74,9 +72,12 @@ export function MobileNavigation({ className }: PropsMobileNavigation) {
        <NavigationMenuContent>
         <ul className="grid gap-3 p-2">
          {navigationComponents.map((component) => (
-          <ListItem key={component.title} title={component.title} href={component.href}>
-           {component.description}
-          </ListItem>
+          <ItemNavLink
+           key={component.title}
+           href={component.href}
+           title={component.title}
+           description={component.description}
+          />
          ))}
         </ul>
        </NavigationMenuContent>
@@ -103,6 +104,7 @@ export function MobileNavigation({ className }: PropsMobileNavigation) {
             <div className="flex w-full justify-between">
              <Button
               onClick={() => {
+               CloseMenu();
                console.log("foi pro perfil");
               }}
               variant="default"
@@ -114,28 +116,43 @@ export function MobileNavigation({ className }: PropsMobileNavigation) {
            </div>
           </NavigationMenuLink>
          </li>
-         <ListItem href="/app" title="Discussões">
-          Veja todas discussões que participa ou participou.
-         </ListItem>
-         <ListItem href="/app" title="Listas">
-          Veja a lista dos filmes que você salvou.
-         </ListItem>
-         <ListItem href="/app" title="Avaliações">
-          Reveja todas avaliações feitas por você.
-         </ListItem>
-         <ListItem href="/app" title="Lista de interesses">
-          Listagem de marcados como interessantes.
-         </ListItem>
+         <ItemNavLink
+          href="/app"
+          title="Discussões"
+          description="Veja todas discussões que participa ou participou."
+         />
+         <ItemNavLink
+          href="/app"
+          title="Listas"
+          description="Veja a lista dos filmes que você salvou."
+         />
+         <ItemNavLink
+          href="/app"
+          title="Avaliações"
+          description="Reveja todas avaliações feitas por você."
+         />
+         <ItemNavLink
+          href="/app"
+          title="Lista de interesses"
+          description="Listagem de marcados como interessantes."
+         />
+
          <Separator />
-         <ListItem href="/app" title="Editar perfil">
-          Atualize seu perfil e preferências de filme.
-         </ListItem>
-         <ListItem href="/app" title="Configurações da conta">
-          Ajuste suas configurações de conta e privacidade.
-         </ListItem>
+
+         <ItemNavLink
+          href="/app"
+          title="Editar perfil"
+          description="Atualize seu perfil e preferências de filme."
+         />
+         <ItemNavLink
+          href="/app"
+          title="Configurações da conta"
+          description="Ajuste suas configurações de conta e privacidade."
+         />
+
          <Separator />
          <p className="line-clamp-2 p-1 text-sm text-center leading-snug text-muted-foreground">
-          &copy; 2024 The Movie.
+          &copy; 2024 <span className={amatic_SC.className}>Wall-y Play</span>.
           <br />
           Todos os direitos reservados.
          </p>
@@ -148,26 +165,3 @@ export function MobileNavigation({ className }: PropsMobileNavigation) {
   </Sheet>
  );
 }
-
-const ListItem = React.forwardRef<React.ElementRef<"a">, React.ComponentPropsWithoutRef<"a">>(
- ({ className, title, children, ...props }, ref) => {
-  return (
-   <li>
-    <NavigationMenuLink asChild>
-     <a
-      ref={ref}
-      className={cn(
-       "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-       className
-      )}
-      {...props}
-     >
-      <div className="text-sm font-medium leading-none">{title}</div>
-      <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">{children}</p>
-     </a>
-    </NavigationMenuLink>
-   </li>
-  );
- }
-);
-ListItem.displayName = "ListItem";

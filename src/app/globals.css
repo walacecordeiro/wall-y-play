@@ -49,6 +49,14 @@
  }
 }
 
+body {
+ font-family: var("--font-manrope");
+}
+
+span {
+ font-family: var("--font-audiowide")
+}
+
 *::-webkit-scrollbar {
  width: 10px;
  height: 10px;

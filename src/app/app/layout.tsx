@@ -4,6 +4,7 @@ import baseLogo from "@/assets/baseLogo.svg";
 import moldeLogo from "@/assets/moldeLogo.svg";
 import Image from "next/image";
 import Link from "next/link";
+import Logo from "./_components/logo";
 
 export default function RootLayout({
  children,
@@ -13,10 +14,7 @@ export default function RootLayout({
  return (
   <main>
    <header className="z-50 bg-gradient-to-b from-background from-10% via-background via-95% to-transparent to-100% flex justify-between md:hidden fixed top-0 w-full p-3">
-    <Link href="/app" className="relative w-fit">
-     <Image src={baseLogo} alt="logo do site" width={undefined} height={35} />
-     <Image src={moldeLogo} alt="logo do site" width={undefined} height={35}  className="absolute top-0 animate-spin-slow"/>
-    </Link>
+    <Logo />
     <MobileNavigation />
    </header>
    <div className="max-md:hidden">
