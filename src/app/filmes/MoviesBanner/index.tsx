@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -61,11 +62,11 @@ export default function MoviesBanner() {
      {data?.slice(0, 4).map((movie) => (
       <CarouselItem className="p-0" key={movie.id}>
        <Card className="border-none">
-        <CardContent className="relative flex h-[460px] md:h-full items-center justify-center p-0">
+        <CardContent className="relative flex h-[500px] items-center justify-center p-0">
          <img
           src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
           alt={movie.title}
-          className="w-[100%] h-[100%] transition sm:hover:scale-105 rounded-xl object-cover"
+          className="w-[100%] h-[100%] transition sm:hover:scale-105 rounded-xl object-cover object-top"
          />
          <div className="absolute flex flex-col items-center justify-end gap-4 p-10 top-0 w-full h-full bg-gradient-to-b from-transparent to-background rounded-xl">
           <h2 className="text-xl text-center md:text-3xl">{movie.title}</h2>
@@ -75,7 +76,7 @@ export default function MoviesBanner() {
            <p className="text-destructive">Lamentamos! não temos sinopse deste título...</p>
           )}
           <Button className="flex items-center gap-2">
-           <MixIcon width={20} height={20}/> Detalhes do Título
+           <MixIcon width={20} height={20} /> Detalhes do Título
           </Button>
          </div>
         </CardContent>
