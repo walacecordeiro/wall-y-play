@@ -3,7 +3,6 @@ import { ChevronLeftIcon, ChevronRightIcon, DotsHorizontalIcon } from "@radix-ui
 
 import { cn } from "@/lib/utils";
 import { ButtonProps, buttonVariants } from "@/components/ui/button";
-import Link from "next/link";
 
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
  <nav
@@ -57,9 +56,9 @@ const PaginationPrevious = ({
   className={cn("gap-1 pl-2.5", className)}
   {...props}
  >
-  <Link href="" scroll>
+  <div>
    <ChevronLeftIcon className="h-7 w-7 border border-primary rounded-full p-1" />
-  </Link>
+  </div>
  </PaginationLink>
 );
 PaginationPrevious.displayName = "PaginationPrevious";
@@ -71,9 +70,9 @@ const PaginationNext = ({ className, ...props }: React.ComponentProps<typeof Pag
   className={cn("gap-1 pr-2.5", className)}
   {...props}
  >
-  <Link href="" scroll>
+  <div>
    <ChevronRightIcon className="h-7 w-7 border border-primary rounded-full p-1" />
-  </Link>
+  </div>
  </PaginationLink>
 );
 PaginationNext.displayName = "PaginationNext";

@@ -1,6 +1,7 @@
 import "@/app/globals.css";
 import type { Metadata } from "next";
 import { manrope } from "../fonts";
+import Header from "@/components/ui/_components/header";
 
 export const metadata: Metadata = {
  title: "Wall-y play",
@@ -15,7 +16,10 @@ export default function RootLayout({
 }>) {
  return (
   <html lang="pt-br" suppressHydrationWarning className={manrope.className}>
-   <body className={`dark`}>{children}</body>
+   <body className={`dark`}>
+    {/* <Header /> */}
+    <div>{children}</div>
+   </body>
   </html>
  );
 }

@@ -1,4 +1,4 @@
-import CloseMenu from "@/app/app/functions/closeMenu";
+import CloseMenu from "@/app/functions/closeMenu";
 import Link from "next/link";
 
 type ItemNavLinkProps = {

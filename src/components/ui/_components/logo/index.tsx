@@ -1,5 +1,6 @@
 "use client";
 
+import CloseMenu from "@/app/functions/closeMenu";
 import baseLogo from "@/assets/baseLogo.svg";
 import moldeLogo from "@/assets/moldeLogo.svg";
 
@@ -7,7 +8,6 @@ import { amatic_SC } from "@/fonts";
 
 import Image from "next/image";
 import Link from "next/link";
-import CloseMenu from "../../functions/closeMenu";
 
 export default function Logo() {
  return (

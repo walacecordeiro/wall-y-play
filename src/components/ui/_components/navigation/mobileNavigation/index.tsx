@@ -30,8 +30,8 @@ import { Separator } from "@/components/ui/separator";
 import { BtnLogout } from "../../btnLogout";
 import Image from "next/image";
 import Logo from "../../logo";
-import CloseMenu from "@/app/app/functions/closeMenu";
-import ItemNavLink from "../_components/itemNavLink";
+import CloseMenu from "@/app/functions/closeMenu";
+import ItemNavLink from "../../itemNavLink";
 import { amatic_SC } from "@/fonts";
 
 export function MobileNavigation() {
