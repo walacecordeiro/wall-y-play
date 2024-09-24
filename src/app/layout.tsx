@@ -17,7 +17,7 @@ export default function RootLayout({
  return (
   <html lang="pt-br" suppressHydrationWarning className={manrope.className}>
    <body className={`dark`}>
-    {/* <Header /> */}
+    <Header />
     <div>{children}</div>
    </body>
   </html>
