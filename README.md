@@ -12,7 +12,7 @@
 <br>
 
 <p align="center">
-  <img alt="imagem do projeto" src="./.github/preview.png" style="border-radius: 10px; width: 80%; height: auto;"/>
+  <img alt="imagem do projeto" src="./.github/preview.png" style="border-radius: 10px; width: 85%; height: auto;"/>
 </p>
 
 ## Tecnologias
